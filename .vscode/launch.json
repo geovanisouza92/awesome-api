@@ -21,7 +21,7 @@
         "-r",
         "ts-node/register"
       ],
-      "internalConsoleOptions": "openOnSessionStart"
+      "outputCapture": "std"
     }
   ]
 }
