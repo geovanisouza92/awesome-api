@@ -5,10 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Program",
+      "name": "Launch API",
       "type": "node",
       "request": "launch",
       "protocol": "inspector",
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "args": [
+        "${workspaceRoot}/interfaces/http/index.ts"
+      ],
       "skipFiles": [
         "<node_internals>/**"
       ],
