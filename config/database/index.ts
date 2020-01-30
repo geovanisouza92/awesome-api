@@ -1,14 +1,14 @@
 import { Connection, createConnection } from 'typeorm';
+import { Inject, Injectable } from '../../helpers/container';
 import { getConnectionOptions } from '../../helpers/database';
 import { Environment } from '../environment';
 
-export class ConnectionProvider {
-  private environment: typeof Environment;
-  private connection?: Connection;
+@Injectable
+export class Database {
+  @Inject
+  private environment!: typeof Environment;
 
-  constructor({ environment }: { environment: typeof Environment }) {
-    this.environment = environment;
-  }
+  private connection?: Connection;
 
   async getConnection(): Promise<Connection> {
     if (!this.connection) {

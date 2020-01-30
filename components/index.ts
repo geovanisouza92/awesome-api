@@ -1,7 +1,7 @@
 import { asClass, asFunction, asValue, AwilixContainer, createContainer } from 'awilix';
-import { ConnectionProvider } from '../config/database';
+import { Database } from '../config/database';
 import { getEnvironment } from '../config/environment';
-import { mountLoggingModule } from '../config/logging';
+import { createLogger } from '../config/logging';
 import { mountHealthcheckComponent } from './healthcheck';
 
 export function mountApplication(): AwilixContainer {
@@ -10,10 +10,10 @@ export function mountApplication(): AwilixContainer {
   const container = createContainer()
     .register({
       environment: asValue(environment),
-      database: asClass(ConnectionProvider)
+      database: asClass(Database)
         .singleton()
         .disposer(provider => provider.close()),
-      logger: asFunction(mountLoggingModule).singleton(),
+      logger: asFunction(createLogger).singleton(),
     });
 
   mountHealthcheckComponent(container);

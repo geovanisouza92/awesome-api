@@ -1,2 +1,3 @@
-export * from './liveness';
-export * from './readiness';
+export * from './check-liveness';
+export * from './check-readiness';
+

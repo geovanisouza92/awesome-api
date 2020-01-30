@@ -1,17 +1,11 @@
-import { asClass, asFunction, AwilixContainer } from 'awilix';
+import { asClass, AwilixContainer } from 'awilix';
 import { HealthcheckService } from './services';
-import { LivenessUseCase, ReadinessUseCase } from './use-cases';
+import { CheckLivenessUseCase, CheckReadinessUseCase } from './use-cases';
 
 export function mountHealthcheckComponent(container: AwilixContainer): void {
-  const scope = container.createScope()
-    .register({
-      healthcheckService: asClass(HealthcheckService),
-      livenessUseCase: asClass(LivenessUseCase),
-      readinessUseCase: asClass(ReadinessUseCase),
-    });
-
   container.register({
-    livenessUseCase: asFunction(() => scope.resolve('livenessUseCase')),
-    readinessUseCase: asFunction(() => scope.resolve('readinessUseCase')),
+    healthcheckService: asClass(HealthcheckService),
+    checkLivenessUseCase: asClass(CheckLivenessUseCase),
+    checkReadinessUseCase: asClass(CheckReadinessUseCase),
   });
 }

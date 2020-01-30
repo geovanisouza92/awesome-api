@@ -1,14 +1,13 @@
-import { ConnectionProvider } from "../../../config/database";
+import { Database } from "../../../config/database";
+import { Inject, Injectable } from "../../../helpers/container";
+import { StatusReport } from "../domain/status-report";
 
+@Injectable
 export class HealthcheckService {
-  private database: ConnectionProvider;
+  @Inject
+  private database!: Database;
 
-  constructor({ database }: { database: ConnectionProvider }) {
-    this.database = database;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  async readiness() {
+  async readiness(): Promise<StatusReport> {
     const connection = await this.database.getConnection();
     return {
       database: connection.isConnected ? 'ok' : 'error',
