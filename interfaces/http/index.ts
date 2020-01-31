@@ -24,9 +24,9 @@ async function main(): Promise<void> {
     .use(cors())
     .use(helmet())
     .use(compression())
-    .use(scopePerRequest(container))
     .use(bodyParser.json())
     .use(cookieParser())
+    .use(scopePerRequest(container))
     .use(checkAuthentication)
     ;
 
