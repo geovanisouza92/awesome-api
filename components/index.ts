@@ -1,5 +1,5 @@
 import { asClass, asFunction, asValue, AwilixContainer, createContainer } from 'awilix';
-import { Database } from '../config/database';
+import { Database } from '../infrastructure/database';
 import { getEnvironment } from '../config/environment';
 import { createLogger } from '../config/logging';
 import { mountHealthcheckComponent } from './healthcheck';

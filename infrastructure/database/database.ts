@@ -21,8 +21,6 @@ export class Database {
   }
 
   async close(): Promise<void> {
-    if (this.connection) {
-      return this.connection.close();
-    }
+    return this.connection?.close();
   }
 }

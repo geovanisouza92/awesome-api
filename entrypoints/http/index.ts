@@ -9,10 +9,10 @@ import morgan from 'morgan';
 import 'reflect-metadata';
 import { Logger } from 'winston';
 import { mountApplication } from '../../components';
-import { mountAuthenticationApi } from '../../components/authentication/interfaces/http';
-import { checkAuthentication } from '../../components/authentication/middlewares';
+import { mountAuthenticationApi, checkAuthentication } from '../../components/authentication/interfaces/http';
 import { mountHealthcheckApi } from '../../components/healthcheck/interfaces/http';
 import { Environment } from '../../config/environment';
+import { openTransaction } from '../../infrastructure/database';
 
 async function main(): Promise<void> {
   const container = await mountApplication();
@@ -27,6 +27,7 @@ async function main(): Promise<void> {
     .use(bodyParser.json())
     .use(cookieParser())
     .use(scopePerRequest(container))
+    .use(openTransaction)
     .use(checkAuthentication)
     ;
 
