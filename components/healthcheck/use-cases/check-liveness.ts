@@ -1,4 +1,4 @@
-import { UseCase } from '../../use-case';
+import { UseCase } from '../../../modules/use-case';
 import { StatusReport } from '../domain/status-report';
 
 export class CheckLivenessUseCase implements UseCase<void, StatusReport> {

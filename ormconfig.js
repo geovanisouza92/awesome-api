@@ -6,7 +6,7 @@ const { getConnectionOptions } = require('./helpers/database');
 module.exports = {
   ...getConnectionOptions(getEnvironment()),
   // "logging": false,
-  "cli": {
-    "migrationsDir": "src/migration"
-  }
+  cli: {
+    migrationsDir: 'src/migration',
+  },
 };

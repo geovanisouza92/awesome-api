@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '../../../helpers/container';
-import { UseCase } from '../../use-case';
+import { UseCase } from '../../../modules/use-case';
 import { StatusReport } from '../domain/status-report';
 import { HealthcheckService } from '../services';
 

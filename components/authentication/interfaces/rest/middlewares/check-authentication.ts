@@ -1,9 +1,9 @@
 import { asValue } from 'awilix';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { Environment } from '../../../../config/environment';
-import { ContainedRequest } from '../../../../helpers/http';
-import { VerifyTokenUseCase } from '../../use-cases';
+import { Environment } from '../../../../../config/environment';
+import { ContainedRequest } from '../../../../../modules/http';
+import { VerifyTokenUseCase } from '../../../use-cases';
 
 export async function checkAuthentication(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { container } = req as ContainedRequest;

@@ -1,5 +1,6 @@
 import { sign, SignOptions, verify } from 'jsonwebtoken';
 import { Environment } from '../../../config/environment';
+import { User } from '../domain/user';
 
 export class AuthenticationService {
   private publicKey!: string;
@@ -17,8 +18,14 @@ export class AuthenticationService {
     return sign(userClaims, this.privateKey, this.signOptions);
   }
 
-  // TODO Change return to domain object
   verifyToken(token: string): User {
-    return verify(token, this.publicKey);
+    let payload = verify(token, this.publicKey);
+    if (typeof payload === 'string') {
+      payload = JSON.parse(payload);
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { id, email, name } = payload as any;
+    const user = new User(id, email, name);
+    return user;
   }
 }

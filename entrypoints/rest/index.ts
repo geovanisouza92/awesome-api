@@ -1,3 +1,4 @@
+import { asValue, createContainer } from 'awilix';
 import { scopePerRequest } from 'awilix-express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -8,16 +9,19 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import 'reflect-metadata';
 import { Logger } from 'winston';
-import { mountApplication } from '../../components';
-import { checkAuthentication, mountAuthenticationApi } from '../../components/authentication/interfaces/rest';
-import { mountHealthcheckApi } from '../../components/healthcheck/interfaces/rest';
-import { Environment } from '../../config/environment';
-import { openTransaction } from '../../infrastructure/database';
+import { mountHealthcheckModule } from '../../components/healthcheck/interfaces/rest';
+import { getEnvironment } from '../../config/environment';
+import { mountDatabaseModule, openTransaction } from '../../infrastructure/database';
+import { mountLoggingModule } from '../../infrastructure/logging';
 
 async function main(): Promise<void> {
-  const container = await mountApplication();
-  const environment = container.resolve('environment') as typeof Environment;
-  const logger = container.resolve('logger') as Logger;
+  const environment = getEnvironment();
+  const container = await createContainer().register({
+    environment: asValue(environment),
+  });
+
+  mountLoggingModule(container);
+  mountDatabaseModule(container);
 
   const app = express()
     .use(morgan(environment.http.logLevel))
@@ -27,11 +31,13 @@ async function main(): Promise<void> {
     .use(bodyParser.json())
     .use(cookieParser())
     .use(scopePerRequest(container))
-    .use(openTransaction)
-    .use(checkAuthentication);
+    .use(openTransaction);
+  // .use(checkAuthentication);
 
-  mountHealthcheckApi(app);
-  mountAuthenticationApi(app);
+  mountHealthcheckModule(container, app);
+  // mountAuthenticationModule(container, app);
+
+  const logger = container.resolve('logger') as Logger;
 
   const server = app.listen(environment.http.port, () => {
     logger.info('Foi');

@@ -11,16 +11,9 @@
       "protocol": "inspector",
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
-      "args": [
-        "${workspaceRoot}/interfaces/http/index.ts"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "runtimeArgs": [
-        "-r",
-        "ts-node/register"
-      ],
+      "args": ["${workspaceRoot}/entrypoints/rest/index.ts"],
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["-r", "ts-node/register"],
       "outputCapture": "std"
     }
   ]

@@ -1,3 +1,4 @@
+import { asFunction, AwilixContainer } from 'awilix';
 import { createLogger as winstonCreateLogger, format, Logger, transports } from 'winston';
 import { Environment } from '../../config/environment';
 
@@ -6,7 +7,7 @@ const customFormat = format.printf(({ level, message, timestamp }: any): string 
   return `${timestamp} ${level}: ${message}`;
 });
 
-export function createLogger({ environment }: { environment: typeof Environment }): Logger {
+function createLogger({ environment }: { environment: typeof Environment }): Logger {
   const logger = winstonCreateLogger({
     level: environment.logger.level,
     format: format.combine(format.timestamp(), format.colorize(), customFormat),
@@ -14,4 +15,10 @@ export function createLogger({ environment }: { environment: typeof Environment 
   });
 
   return logger;
+}
+
+export function mountLoggingModule(container: AwilixContainer): void {
+  container.register({
+    logger: asFunction(createLogger).singleton(),
+  });
 }

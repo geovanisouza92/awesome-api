@@ -1,29 +1,19 @@
+import { asClass, AwilixContainer } from 'awilix';
 import { makeInvoker } from 'awilix-express';
-import { Request, Response, Router } from 'express';
-import { Inject, Injectable } from '../../../../helpers/container';
-import { CheckLivenessUseCase, CheckReadinessUseCase } from '../../use-cases';
+import { Router } from 'express';
+import { HealthcheckService } from '../../services/healthcheck';
+import { CheckLivenessUseCase } from '../../use-cases/check-liveness';
+import { CheckReadinessUseCase } from '../../use-cases/check-readiness';
+import { HealthcheckController } from './controllers/healthcheck';
 
-@Injectable
-class Controller {
-  @Inject
-  private checkLivenessUseCase!: CheckLivenessUseCase;
+export function mountHealthcheckModule(container: AwilixContainer, app: Router): void {
+  container.register({
+    healthcheckService: asClass(HealthcheckService),
+    checkLivenessUseCase: asClass(CheckLivenessUseCase),
+    checkReadinessUseCase: asClass(CheckReadinessUseCase),
+  });
 
-  @Inject
-  private checkReadinessUseCase!: CheckReadinessUseCase;
-
-  async liveness(_: Request, res: Response): Promise<void> {
-    const result = await this.checkLivenessUseCase.execute();
-    res.json(result);
-  }
-
-  async readiness(_: Request, res: Response): Promise<void> {
-    const result = await this.checkReadinessUseCase.execute();
-    res.json(result);
-  }
-}
-
-export function mountHealthcheckApi(app: Router): void {
-  const callMethod = makeInvoker(Controller);
+  const callMethod = makeInvoker(HealthcheckController);
 
   app.use('/healthcheck/liveness', callMethod('liveness'));
   app.use('/healthcheck/readiness', callMethod('readiness'));

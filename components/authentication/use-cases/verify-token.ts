@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '../../../helpers/container';
-import { UseCase } from '../../use-case';
+import { UseCase } from '../../../modules/use-case';
+import { User } from '../domain/user';
 import { AuthenticationService } from '../services';
 
 @Injectable
