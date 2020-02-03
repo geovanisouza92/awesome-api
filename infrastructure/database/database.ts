@@ -1,7 +1,7 @@
 import { Connection, createConnection } from 'typeorm';
+import { Environment } from '../../config/environment';
 import { Inject, Injectable } from '../../helpers/container';
 import { getConnectionOptions } from '../../helpers/database';
-import { Environment } from '../environment';
 
 @Injectable
 export class Database {

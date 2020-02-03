@@ -1,6 +1,6 @@
-import { asClass, AwilixContainer } from "awilix";
-import { AuthenticationService } from "./services";
-import { VerifyTokenUseCase } from "./use-cases";
+import { asClass, AwilixContainer } from 'awilix';
+import { AuthenticationService } from './services';
+import { VerifyTokenUseCase } from './use-cases';
 
 export function mountAuthenticateComponent(container: AwilixContainer): void {
   container.register({

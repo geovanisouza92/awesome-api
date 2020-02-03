@@ -1,4 +1,4 @@
-import { SignOptions } from "jsonwebtoken";
+import { SignOptions } from 'jsonwebtoken';
 
 export const Environment = {
   http: {
@@ -20,6 +20,6 @@ export const Environment = {
       algorithm: 'RS256',
       expiresIn: '1 day',
       issuer: 'awesome-api',
-    } as SignOptions
+    } as SignOptions,
   },
 };

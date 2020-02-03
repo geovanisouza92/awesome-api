@@ -9,7 +9,7 @@ export function Injectable(target: any): any {
       super();
 
       const dependencies: Array<string | symbol> = Reflect.get(this, injectKey);
-      dependencies.forEach(dependency => {
+      dependencies.forEach((dependency) => {
         let value: any;
 
         Object.defineProperty(this, dependency, {
@@ -18,8 +18,8 @@ export function Injectable(target: any): any {
               value = container[dependency];
             }
             return value;
-          }
-        })
+          },
+        });
       });
     }
   };

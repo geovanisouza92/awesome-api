@@ -8,7 +8,7 @@ export async function setupFixtures(fixturesPath: string, connection: Connection
     let repository = repositoryMap.get(name);
     if (!repository) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      repository = connection.getCustomRepository(name as any as ObjectType<Repository<{}>>);
+      repository = connection.getCustomRepository((name as any) as ObjectType<Repository<{}>>);
       repositoryMap.set(name, repository);
     }
     return repository;
@@ -34,10 +34,9 @@ export async function setupFixtures(fixturesPath: string, connection: Connection
   }
 
   return async (): Promise<void> => {
-    return Array.from(repositoryMap.values())
-      .reduce(async (prevPromise: Promise<void>, repository: Repository<{}>) => {
-        await prevPromise;
-        return repository.clear();
-      }, Promise.resolve());
-  }
+    return Array.from(repositoryMap.values()).reduce(async (prevPromise: Promise<void>, repository: Repository<{}>) => {
+      await prevPromise;
+      return repository.clear();
+    }, Promise.resolve());
+  };
 }

@@ -1,5 +1,5 @@
 import { createLogger as winstonCreateLogger, format, Logger, transports } from 'winston';
-import { Environment } from "../environment";
+import { Environment } from '../../config/environment';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const customFormat = format.printf(({ level, message, timestamp }: any): string => {
@@ -9,14 +9,8 @@ const customFormat = format.printf(({ level, message, timestamp }: any): string 
 export function createLogger({ environment }: { environment: typeof Environment }): Logger {
   const logger = winstonCreateLogger({
     level: environment.logger.level,
-    format: format.combine(
-      format.timestamp(),
-      format.colorize(),
-      customFormat,
-    ),
-    transports: [
-      new transports.Console(),
-    ],
+    format: format.combine(format.timestamp(), format.colorize(), customFormat),
+    transports: [new transports.Console()],
   });
 
   return logger;
