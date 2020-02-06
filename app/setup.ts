@@ -1,7 +1,6 @@
 import { asValue, createContainer } from 'awilix';
 import { scopePerRequest } from 'awilix-express';
 import bodyParser from 'body-parser';
-import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
@@ -21,7 +20,6 @@ export function createAppAndContainer(environment: Environment) {
     .use(morgan(environment.http.logLevel))
     .use(cors())
     .use(helmet())
-    .use(compression())
     .use(bodyParser.json())
     .use(cookieParser())
     .use(scopePerRequest(container));
