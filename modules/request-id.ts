@@ -1,4 +1,4 @@
-import { createNamespace } from 'continuation-local-storage';
+import { createNamespace } from 'cls-hooked';
 import { NextFunction, Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
