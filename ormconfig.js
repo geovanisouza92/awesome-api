@@ -3,8 +3,10 @@
 const { getEnvironment } = require('./config/environment');
 const { getConnectionOptions } = require('./helpers/database');
 
+const environment = getEnvironment();
+
 module.exports = {
-  ...getConnectionOptions(getEnvironment()),
+  ...getConnectionOptions(environment.database.url),
   // "logging": false,
   cli: {
     migrationsDir: 'src/migration',

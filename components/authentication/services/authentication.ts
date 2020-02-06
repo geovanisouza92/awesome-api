@@ -10,7 +10,7 @@ export class AuthenticationService {
   constructor({ environment }: { environment: Environment }) {
     this.publicKey = environment.auth.publicKey;
     this.privateKey = environment.auth.privateKey;
-    this.signOptions = environment.auth.signOptions;
+    this.signOptions = environment.auth.signOptions as Partial<SignOptions>;
   }
 
   createToken(): string {

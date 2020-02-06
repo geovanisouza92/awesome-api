@@ -1,19 +1,19 @@
 import { Connection, createConnection } from 'typeorm';
 import { Environment } from '../../config/environment';
-import { Inject, Injectable } from '../../helpers/container';
 import { getConnectionOptions } from '../../helpers/database';
 
-@Injectable
 export class Database {
-  @Inject
-  private environment!: Environment;
-
+  private url: string;
   private connection?: Connection;
+
+  constructor({ environment }: { environment: Environment }) {
+    this.url = environment.database.url;
+  }
 
   async getConnection(): Promise<Connection> {
     if (!this.connection) {
       this.connection = await createConnection({
-        ...getConnectionOptions(this.environment),
+        ...getConnectionOptions(this.url),
       });
     }
 

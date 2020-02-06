@@ -1,12 +1,14 @@
-import { SignOptions } from 'jsonwebtoken';
+import { fromKey } from '../../helpers/environment';
 
 export const Environment = {
   http: {
-    port: 3000,
+    port: fromKey('PORT')
+      .asNumber()
+      .defaultTo(3000),
     logLevel: 'common',
   },
   database: {
-    url: 'postgres://postgres:postgres@localhost:5432/awesome_api_prod',
+    url: fromKey('DATABASE_URL').isRequired(),
   },
   logger: {
     level: 'error',
@@ -14,12 +16,12 @@ export const Environment = {
   auth: {
     loginUrl: '/login',
     cookieName: 'awesome-api-token',
-    publicKey: '',
-    privateKey: '',
+    publicKey: fromKey('JWT_PUBLIC_KEY').isRequired(),
+    privateKey: fromKey('JWT_PRIVATE_KEY').isRequired(),
     signOptions: {
       algorithm: 'RS256',
       expiresIn: '1 day',
       issuer: 'awesome-api',
-    } as SignOptions,
+    },
   },
 };
