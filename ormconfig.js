@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const { getEnvironment } = require('./config/environment');
-const { getConnectionOptions } = require('./helpers/database');
+const { getConnectionOptions } = require('./modules/database');
 
 const environment = getEnvironment();
 

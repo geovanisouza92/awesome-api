@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Inject, Injectable } from '../../../../../helpers/container';
+import { Inject, Injectable } from '../../../../../modules/container';
 import { CheckLivenessUseCase } from '../../../use-cases/check-liveness';
 import { CheckReadinessUseCase } from '../../../use-cases/check-readiness';
 

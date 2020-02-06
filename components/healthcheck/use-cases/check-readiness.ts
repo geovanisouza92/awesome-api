@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '../../../helpers/container';
+import { Inject, Injectable } from '../../../modules/container';
 import { UseCase } from '../../../modules/use-case';
 import { StatusReport } from '../domain/status-report';
-import { HealthcheckService } from '../services';
+import { HealthcheckService } from '../services/healthcheck';
 
 @Injectable
 export class CheckReadinessUseCase implements UseCase<void, StatusReport> {
