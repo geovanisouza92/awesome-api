@@ -3,11 +3,10 @@ FROM node:10-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-ADD package.json .
-ADD package-lock.json .
+COPY package*.json ./
 RUN npm ci --only=production
 
-ADD . .
+COPY . .
 
 USER node
 
