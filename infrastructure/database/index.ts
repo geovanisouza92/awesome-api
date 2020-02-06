@@ -1,9 +1,6 @@
-import { asClass, asFunction, AwilixContainer } from 'awilix';
-import { EntityManager } from 'typeorm';
-import { User } from '../../components/authentication/domain/user';
+import { asClass, AwilixContainer } from 'awilix';
 import { Database } from './database';
-import { UserRepositoryImpl } from './repositories/user-repository';
-
+import { mountUserRepository } from './repositories/user-repository';
 export { openTransaction } from './middlewares/open-transaction';
 
 export function mountDatabaseModule(container: AwilixContainer): void {
@@ -11,8 +8,7 @@ export function mountDatabaseModule(container: AwilixContainer): void {
     database: asClass(Database)
       .singleton()
       .disposer((database) => database.close()),
-    userRepository: asFunction(({ entityManager }: { entityManager: EntityManager }) =>
-      entityManager.getCustomRepository<User>(UserRepositoryImpl),
-    ).scoped(),
   });
+
+  mountUserRepository(container);
 }

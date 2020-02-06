@@ -3,11 +3,11 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { Environment } from '../../../../../config/environment';
 import { ContainedRequest } from '../../../../../modules/http';
-import { VerifyTokenUseCase } from '../../../use-cases';
+import { VerifyTokenUseCase } from '../../../use-cases/verify-token';
 
 export async function checkAuthentication(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { container } = req as ContainedRequest;
-  const environment = container.resolve('environment') as typeof Environment;
+  const environment = container.resolve('environment') as Environment;
 
   const cookieValue = req.cookies[environment.auth.cookieName];
   if (!cookieValue) {

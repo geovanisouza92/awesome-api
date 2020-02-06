@@ -7,7 +7,7 @@ export class AuthenticationService {
   private privateKey!: string;
   private signOptions!: SignOptions;
 
-  constructor({ environment }: { environment: typeof Environment }) {
+  constructor({ environment }: { environment: Environment }) {
     this.publicKey = environment.auth.publicKey;
     this.privateKey = environment.auth.privateKey;
     this.signOptions = environment.auth.signOptions;
@@ -23,9 +23,6 @@ export class AuthenticationService {
     if (typeof payload === 'string') {
       payload = JSON.parse(payload);
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { id, email, name } = payload as any;
-    const user = new User(id, email, name);
-    return user;
+    return new User(payload as Partial<User>);
   }
 }

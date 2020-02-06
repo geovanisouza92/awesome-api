@@ -1,16 +1,25 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { asFunction, AwilixContainer } from 'awilix';
+import { EntityManager, EntityRepository, Repository } from 'typeorm';
 import { User } from '../../../components/authentication/domain/user';
 import { UserRepository } from '../../../components/authentication/infrastructure/user-repository';
 import { NotFoundError } from '../../../modules/errors';
 import { UserSchema } from '../schemas/user';
 
 @EntityRepository(UserSchema)
-export class UserRepositoryImpl extends Repository<User> implements UserRepository {
+class UserRepositoryImpl extends Repository<User> implements UserRepository {
   async findUserById(id: string): Promise<User> {
-    const raw = await this.findOne({ where: { id } });
-    if (!raw) {
+    const foundUser = await this.findOne({ where: { id } });
+    if (!foundUser) {
       throw new NotFoundError('User', id);
     }
-    return new User(raw.id, raw.email, raw.name);
+    return new User(foundUser);
   }
+}
+
+export function mountUserRepository(container: AwilixContainer): void {
+  container.register({
+    userRepository: asFunction(({ entityManager }: { entityManager: EntityManager }) =>
+      entityManager.getCustomRepository<User>(UserRepositoryImpl),
+    ).scoped(),
+  });
 }

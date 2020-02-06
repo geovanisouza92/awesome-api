@@ -6,7 +6,7 @@ import { getConnectionOptions } from '../../helpers/database';
 @Injectable
 export class Database {
   @Inject
-  private environment!: typeof Environment;
+  private environment!: Environment;
 
   private connection?: Connection;
 

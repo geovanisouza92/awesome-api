@@ -1,3 +1,9 @@
 export class User {
-  constructor(public id: string, public email: string, public name: string) {}
+  public readonly id!: string;
+  public readonly email!: string;
+  public readonly name!: string;
+
+  constructor(values: Partial<User>) {
+    Object.assign(this, values);
+  }
 }

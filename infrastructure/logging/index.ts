@@ -7,7 +7,7 @@ const customFormat = format.printf(({ level, message, timestamp }: any): string 
   return `${timestamp} ${level}: ${message}`;
 });
 
-function createLogger({ environment }: { environment: typeof Environment }): Logger {
+function createLogger({ environment }: { environment: Environment }): Logger {
   const logger = winstonCreateLogger({
     level: environment.logger.level,
     format: format.combine(format.timestamp(), format.colorize(), customFormat),
