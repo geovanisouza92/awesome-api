@@ -1,4 +1,5 @@
 import http from 'http';
+import { AddressInfo } from 'net';
 import { Logger } from 'winston';
 import { mountModulesForRest } from '../../app/rest';
 import { createAppAndContainer } from '../../app/setup';
@@ -11,8 +12,9 @@ mountModulesForRest(container, app);
 const logger = container.resolve('logger') as Logger;
 const server = http.createServer(app);
 
-server.listen(() => {
-  logger.info('Running on port', app.get('port'));
+server.listen(app.get('port'), () => {
+  const { address, port } = server.address() as AddressInfo;
+  logger.info(`Running on (${address}) port ${port}`);
 });
 
 process.on('SIGINT', () => {
