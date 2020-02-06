@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import 'reflect-metadata';
 import { Environment } from '../config/environment';
+import { defineRequestId } from '../modules/request-id';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createAppAndContainer(environment: Environment) {
@@ -17,6 +18,7 @@ export function createAppAndContainer(environment: Environment) {
 
   const app = express()
     .set('port', environment.http.port)
+    .use(defineRequestId)
     .use(morgan(environment.http.logLevel))
     .use(cors())
     .use(helmet())
