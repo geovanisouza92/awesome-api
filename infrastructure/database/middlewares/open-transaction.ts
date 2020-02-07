@@ -5,7 +5,7 @@ import { Database } from '../database';
 
 export async function openTransaction(req: Request, _: Response, next: NextFunction): Promise<void> {
   const { container } = req as ContainedRequest;
-  const database = container.resolve('database') as Database;
+  const database = container.resolve<Database>('database');
   const connection = await database.getConnection();
   await connection.transaction(async (entityManager) => {
     container.register({

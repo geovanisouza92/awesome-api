@@ -7,7 +7,7 @@ import { VerifyTokenUseCase } from '../../../use-cases/verify-token';
 
 export async function checkAuthentication(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { container } = req as ContainedRequest;
-  const environment = container.resolve('environment') as Environment;
+  const environment = container.resolve<Environment>('environment');
 
   const cookieValue = req.cookies[environment.auth.cookieName];
   if (!cookieValue) {
@@ -15,7 +15,7 @@ export async function checkAuthentication(req: Request, res: Response, next: Nex
     return;
   }
 
-  const verifyTokenUseCase = container.resolve('verifyTokenUseCase') as VerifyTokenUseCase;
+  const verifyTokenUseCase = container.resolve<VerifyTokenUseCase>('verifyTokenUseCase');
   const currentUser = await verifyTokenUseCase.execute(cookieValue);
   if (!currentUser) {
     res.status(httpStatus.UNAUTHORIZED).send();

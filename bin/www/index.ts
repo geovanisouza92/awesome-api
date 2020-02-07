@@ -9,7 +9,7 @@ const environment = getEnvironment();
 const { app, container } = createAppAndContainer(environment);
 mountModulesForRest(container, app);
 
-const logger = container.resolve('logger') as Logger;
+const logger = container.resolve<Logger>('logger');
 const server = http.createServer(app);
 
 server.listen(app.get('port'), () => {
