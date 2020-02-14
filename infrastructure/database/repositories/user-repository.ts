@@ -2,7 +2,7 @@ import { asFunction, AwilixContainer } from 'awilix';
 import { EntityManager, EntityRepository, Repository } from 'typeorm';
 import { User } from '../../../components/authentication/domain/user';
 import { UserRepository } from '../../../components/authentication/infrastructure/user-repository';
-import { NotFoundError } from '../../../modules/errors';
+import { NotFoundError } from '../../../lib/errors';
 import { UserSchema } from '../schemas/user';
 
 @EntityRepository(UserSchema)

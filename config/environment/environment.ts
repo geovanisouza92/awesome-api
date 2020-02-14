@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { fromKey } from '../../modules/environment';
+import { fromKey } from '../../lib/environment';
 
 const readFile = (name: string): string => fs.readFileSync(path.resolve(__dirname, name), 'utf8');
 const publicKey = readFile('../keys/dev-only-public-key.pem');

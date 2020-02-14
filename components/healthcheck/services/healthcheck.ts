@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '../../../modules/container';
+import { Inject, Injectable } from '../../../lib/container';
 import { StatusReport } from '../domain/status-report';
 
 interface Database {

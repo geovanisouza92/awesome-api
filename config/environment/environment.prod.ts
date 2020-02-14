@@ -1,4 +1,4 @@
-import { fromKey } from '../../modules/environment';
+import { fromKey } from '../../lib/environment';
 
 export const Environment = {
   http: {

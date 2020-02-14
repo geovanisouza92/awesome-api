@@ -1,4 +1,4 @@
-import { apply, Out } from '../../modules/environment';
+import { apply, Out } from '../../lib/environment';
 import { Environment as DevEnvironment } from './environment';
 import { Environment as ProdEnvironment } from './environment.prod';
 import { Environment as TestEnvironment } from './environment.test';
