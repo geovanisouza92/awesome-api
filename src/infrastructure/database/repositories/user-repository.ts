@@ -1,13 +1,11 @@
-import { AwilixContainer } from 'awilix';
 import { EntityRepository, Repository } from 'typeorm';
-import { registerRepository } from '../../../../lib/container';
 import { NotFoundError } from '../../../../lib/errors';
 import { User } from '../../../components/authentication/domain/user';
 import { UserRepository } from '../../../components/authentication/infrastructure/user-repository';
-import { UserSchema } from '../schemas/user';
+import { UserSchema } from '../entities/user';
 
 @EntityRepository(UserSchema)
-class UserRepositoryImpl extends Repository<User> implements UserRepository {
+export class UserRepositoryImpl extends Repository<User> implements UserRepository {
   async findUserById(id: string): Promise<User> {
     const foundUser = await this.findOne({ where: { id } });
     if (!foundUser) {
@@ -15,10 +13,8 @@ class UserRepositoryImpl extends Repository<User> implements UserRepository {
     }
     return new User(foundUser);
   }
-}
 
-export function mountUserRepository(container: AwilixContainer): void {
-  container.register({
-    userRepository: registerRepository<User>(UserRepositoryImpl),
-  });
+  async count(): Promise<number> {
+    return 0;
+  }
 }

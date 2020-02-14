@@ -2,6 +2,7 @@ import { Connection, createConnection, Logger } from 'typeorm';
 import { Environment } from '../../../config/environment';
 import { Inject, Injectable } from '../../../lib/container';
 import { getConnectionOptions } from '../../../lib/database';
+import { entities } from './entities';
 
 @Injectable
 export class Database {
@@ -19,6 +20,7 @@ export class Database {
         ...getConnectionOptions(this.environment.database.url),
         logging: true,
         logger: this.databaseLogger,
+        entities,
       });
     }
 

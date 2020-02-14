@@ -1,7 +1,7 @@
 import { asClass, asValue, AwilixContainer } from 'awilix';
 import { Database } from './database';
 import { DatabaseLogger } from './database-logger';
-import { mountUserRepository } from './repositories/user-repository';
+import { mountUserRepository } from './repositories';
 export { openTransaction } from './middlewares/open-transaction';
 
 export function mountDatabaseModule(container: AwilixContainer): void {
