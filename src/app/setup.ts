@@ -7,8 +7,8 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import 'reflect-metadata';
-import { Environment } from '../config/environment';
-import { defineRequestId } from '../lib/request-id';
+import { Environment } from '../../config/environment';
+import { defineRequestId } from '../../lib/request-id';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createAppAndContainer(environment: Environment) {

@@ -1,6 +1,6 @@
 import { Connection, createConnection } from 'typeorm';
-import { Environment } from '../../config/environment';
-import { getConnectionOptions } from '../../lib/database';
+import { Environment } from '../../../config/environment';
+import { getConnectionOptions } from '../../../lib/database';
 
 export class Database {
   private url: string;

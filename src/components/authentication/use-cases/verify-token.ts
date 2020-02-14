@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '../../../lib/container';
-import { UseCase } from '../../../lib/use-case';
+import { Inject, Injectable } from '../../../../lib/container';
+import { UseCase } from '../../../../lib/use-case';
 import { User } from '../domain/user';
 import { AuthenticationService } from '../services/authentication';
 

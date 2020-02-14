@@ -1,9 +1,9 @@
 import http from 'http';
 import { AddressInfo } from 'net';
 import { Logger } from 'winston';
-import { mountModulesForRest } from '../../app/rest';
-import { createAppAndContainer } from '../../app/setup';
 import { getEnvironment } from '../../config/environment';
+import { mountModulesForRest } from '../../src/app/rest';
+import { createAppAndContainer } from '../../src/app/setup';
 
 const environment = getEnvironment();
 const { app, container } = createAppAndContainer(environment);

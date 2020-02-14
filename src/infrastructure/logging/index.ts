@@ -1,6 +1,6 @@
 import { asFunction, AwilixContainer } from 'awilix';
 import { createLogger as winstonCreateLogger, format, Logger, transports } from 'winston';
-import { Environment } from '../../config/environment';
+import { Environment } from '../../../config/environment';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const customFormat = format.printf(({ level, message, timestamp }: any): string => {

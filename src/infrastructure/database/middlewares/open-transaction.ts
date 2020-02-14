@@ -1,6 +1,6 @@
 import { asValue } from 'awilix';
 import { NextFunction, Request, Response } from 'express';
-import { ContainedRequest } from '../../../lib/http';
+import { ContainedRequest } from '../../../../lib/http';
 import { Database } from '../database';
 
 export async function openTransaction(req: Request, _: Response, next: NextFunction): Promise<void> {

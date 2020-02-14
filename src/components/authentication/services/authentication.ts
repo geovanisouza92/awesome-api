@@ -1,5 +1,5 @@
 import { sign, SignOptions, verify } from 'jsonwebtoken';
-import { Environment } from '../../../config/environment';
+import { Environment } from '../../../../config/environment';
 import { User } from '../domain/user';
 
 export class AuthenticationService {
