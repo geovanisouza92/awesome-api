@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   env: {
+    es6: true,
     node: true,
   },
   parser: '@typescript-eslint/parser',
@@ -17,4 +18,13 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
   },
+  overrides: [
+    {
+      files: ['src/infrastructure/database/repositories/*.ts'],
+      rules: {
+        'prefer-template': 'error',
+        'no-restricted-syntax': ['error', 'TemplateLiteral'],
+      },
+    },
+  ],
 };
