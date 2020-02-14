@@ -11,13 +11,14 @@ export const Environment = {
     port: fromKey('PORT')
       .asNumber()
       .defaultTo(3000),
-    logLevel: 'dev',
+    logFormat: 'dev',
   },
   database: {
     url: fromKey('DATABASE_URL').defaultTo('postgres://postgres:postgres@localhost:5432/awesome_api'),
   },
   logger: {
     level: 'debug',
+    format: 'pretty',
   },
   auth: {
     loginUrl: '/login',

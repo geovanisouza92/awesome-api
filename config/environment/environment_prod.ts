@@ -5,13 +5,14 @@ export const Environment = {
     port: fromKey('PORT')
       .asNumber()
       .defaultTo(3000),
-    logLevel: 'common',
+    logFormat: 'common',
   },
   database: {
     url: fromKey('DATABASE_URL').isRequired(),
   },
   logger: {
     level: 'error',
+    format: 'json',
   },
   auth: {
     loginUrl: '/login',
