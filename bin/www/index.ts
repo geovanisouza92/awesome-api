@@ -1,12 +1,13 @@
 import http from 'http';
 import { AddressInfo } from 'net';
-import { Logger } from 'winston';
 import { getEnvironment } from '../../config/environment';
 import { mountModulesForRest } from '../../src/app/rest';
-import { createAppAndContainer } from '../../src/app/setup';
+import { createAppContainer, createAppRouter } from '../../src/app/setup';
+import { Logger } from '../../src/infrastructure/logging';
 
 const environment = getEnvironment();
-const { app, container } = createAppAndContainer(environment);
+const container = createAppContainer(environment);
+const app = createAppRouter(environment, container);
 mountModulesForRest(container, app);
 
 const logger = container.resolve<Logger>('logger');
