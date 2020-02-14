@@ -1,5 +1,6 @@
-import { asFunction, AwilixContainer } from 'awilix';
-import { EntityManager, EntityRepository, Repository } from 'typeorm';
+import { AwilixContainer } from 'awilix';
+import { EntityRepository, Repository } from 'typeorm';
+import { registerRepository } from '../../../../lib/container';
 import { NotFoundError } from '../../../../lib/errors';
 import { User } from '../../../components/authentication/domain/user';
 import { UserRepository } from '../../../components/authentication/infrastructure/user-repository';
@@ -18,8 +19,6 @@ class UserRepositoryImpl extends Repository<User> implements UserRepository {
 
 export function mountUserRepository(container: AwilixContainer): void {
   container.register({
-    userRepository: asFunction(({ entityManager }: { entityManager: EntityManager }) =>
-      entityManager.getCustomRepository<User>(UserRepositoryImpl),
-    ).scoped(),
+    userRepository: registerRepository<User>(UserRepositoryImpl),
   });
 }
