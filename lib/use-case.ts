@@ -1,3 +1,3 @@
-export interface UseCase<Params, Response> {
-  execute(params: Params): Promise<Response>;
+export interface UseCase<TRequest, TResponse> {
+  execute(params: TRequest): Promise<TResponse>;
 }
