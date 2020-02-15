@@ -1,1 +1,5 @@
-export class AuthenticationController {}
+export class AuthenticationController {
+  async authenticate(): Promise<void> {
+    //
+  }
+}

@@ -1,10 +1,10 @@
-import { makeInvoker } from 'awilix-express';
 import { Router } from 'express';
+import { createController } from '../../../../../lib/http';
 import { HealthcheckController } from './controllers/healthcheck';
 
 export function mountHealthcheckApi(app: Router): void {
-  const callMethod = makeInvoker(HealthcheckController);
+  const handleWith = createController(HealthcheckController);
 
-  app.use('/healthcheck/liveness', callMethod('liveness'));
-  app.use('/healthcheck/readiness', callMethod('readiness'));
+  app.use('/healthcheck/liveness', handleWith('liveness'));
+  app.use('/healthcheck/readiness', handleWith('readiness'));
 }

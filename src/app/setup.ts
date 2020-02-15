@@ -1,5 +1,4 @@
 import { asValue, AwilixContainer, createContainer } from 'awilix';
-import { scopePerRequest } from 'awilix-express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -8,6 +7,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import 'reflect-metadata';
 import { Environment } from '../../config/environment';
+import { scopePerRequest } from '../../lib/http';
 import { currentRequestId, defineRequestId } from '../../lib/request-id';
 import { Logger } from '../infrastructure/logging';
 
