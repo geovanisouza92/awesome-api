@@ -26,25 +26,22 @@ const addRequestId = format((info) => {
   return info;
 });
 
-function createLogger({ environment }: { environment: Environment }): Logger {
-  const formats = [addRequestId(), format.timestamp()];
+const formats: { [_: string]: import('logform').Format[] } = {
+  json: [format.json()],
+  pretty: [
+    format.colorize(),
+    format.printf((entry: LogEntry) => {
+      const { timestamp, level, message, ...rawMeta } = entry;
+      const meta = JSON.stringify(rawMeta, null, 2);
+      return `${timestamp} [${level}]: ${message.trim()} ${meta}`;
+    }),
+  ],
+};
 
-  if (environment.logger.format === 'json') {
-    formats.push(format.json());
-  } else {
-    formats.push(
-      format.colorize(),
-      format.printf((entry: LogEntry) => {
-        const { timestamp, level, message, ...rawMeta } = entry;
-        const meta = JSON.stringify(rawMeta, null, 2);
-        return `${timestamp} [${level}]: ${message.trim()} ${meta}`;
-      }),
-    );
-  }
-
+export function createLogger(environment: Environment): Logger {
   return winstonCreateLogger({
     level: environment.logger.level,
-    format: format.combine(...formats),
+    format: format.combine(addRequestId(), format.timestamp(), ...formats[environment.logger.format]),
     transports: [new transports.Console()],
   });
 }

@@ -36,9 +36,9 @@ class Value<T = any> {
     return (this as any) as Value<number>;
   }
 
-  asBool(): Value<number> {
+  asBoolean(): Value<boolean> {
     this.parse = BoolValue;
-    return (this as any) as Value<number>;
+    return (this as any) as Value<boolean>;
   }
 
   isRequired(): Value<T> {
