@@ -27,6 +27,10 @@ export class Database {
     return this.connection;
   }
 
+  get isConnected(): boolean {
+    return Boolean(this.connection?.isConnected);
+  }
+
   async close(): Promise<void> {
     return this.connection?.close();
   }

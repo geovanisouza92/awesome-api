@@ -2,12 +2,8 @@ import { Inject, Injectable } from '../../../../lib/container';
 import { StatusReport } from '../domain/status-report';
 
 interface Database {
-  getConnection(): Promise<Connection>;
-}
-
-type Connection = {
   isConnected: boolean;
-};
+}
 
 @Injectable
 export class HealthcheckService {
@@ -15,9 +11,8 @@ export class HealthcheckService {
   private database!: Database;
 
   async readiness(): Promise<StatusReport> {
-    const connection = await this.database.getConnection();
     return {
-      database: connection.isConnected ? 'ok' : 'error',
+      database: this.database.isConnected ? 'ok' : 'error',
     };
   }
 }
