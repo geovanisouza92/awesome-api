@@ -7,7 +7,7 @@
   "keywords": [],
   "main": "index.js",
   "scripts": {
-    "start": "",
+    "start": "ts-node bin/www",
     "test": "jest unit.test",
     "test-all": "jest",
     "lint": "eslint '**/*.ts'"

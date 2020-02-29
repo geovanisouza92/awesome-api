@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { asClass, AwilixContainer, Constructor } from 'awilix';
 import { NextFunction, Request, Response } from 'express';
 

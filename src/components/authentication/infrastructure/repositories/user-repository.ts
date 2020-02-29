@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { NotFoundError } from '../../../../lib/errors';
-import { User } from '../../../components/authentication/domain/user';
-import { UserRepository } from '../../../components/authentication/infrastructure/user-repository';
+import { NotFoundError } from '../../../../../lib/errors';
+import { User } from '../../domain/user';
+import { UserRepository } from '../user-repository';
 import { UserSchema } from '../entities/user';
 
 @EntityRepository(UserSchema)

@@ -38,7 +38,7 @@ const formats: { [_: string]: import('logform').Format[] } = {
   ],
 };
 
-export function createLogger(environment: Environment): Logger {
+export function createLogger({ environment }: { environment: Environment }): Logger {
   return winstonCreateLogger({
     level: environment.logger.level,
     format: format.combine(addRequestId(), format.timestamp(), ...formats[environment.logger.format]),
