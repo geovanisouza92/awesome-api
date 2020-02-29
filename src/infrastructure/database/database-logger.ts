@@ -14,7 +14,10 @@ export class DatabaseLogger implements typeormLogger {
   }
 
   logQueryError(error: string, query: string, parameters?: any[]): void {
-    this.logger.error(`SQL ERROR FOR QUERY: "${query}"`, { parameters, error });
+    this.logger.error(`SQL ERROR FOR QUERY: "${query}"`, {
+      parameters,
+      error: ((error as any) as Error).stack,
+    });
   }
 
   logQuerySlow(time: number, query: string, parameters?: any[]): void {

@@ -15,7 +15,7 @@ const server = http.createServer(app);
 
 server.listen(app.get('port'), () => {
   const { address, port } = server.address() as AddressInfo;
-  logger.info(`Running on (${address}) port ${port}`);
+  logger.info(`Running on ${address}:${port}`);
 });
 
 process.on('SIGINT', () => {

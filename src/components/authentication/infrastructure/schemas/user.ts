@@ -2,7 +2,7 @@ import { EntitySchema } from 'typeorm';
 import { User } from '../../domain/user';
 
 export const UserSchema = new EntitySchema<User>({
-  name: 'user',
+  name: 'users',
   columns: {
     id: {
       type: String,
