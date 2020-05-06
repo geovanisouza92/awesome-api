@@ -1,6 +1,6 @@
-import { fromKey } from '../../lib/environment';
+import { fromKey } from '../lib/config';
 
-export const Environment = {
+export const Config = {
   http: {
     port: fromKey('PORT')
       .asNumber()

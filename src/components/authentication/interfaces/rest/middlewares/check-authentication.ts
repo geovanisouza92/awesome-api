@@ -1,17 +1,17 @@
 import { asValue } from 'awilix';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { Environment } from '../../../../../../config/environment';
+import { Config } from '../../../../../../config';
 import { ContainedRequest } from '../../../../../../lib/http';
 import { VerifyTokenUseCase } from '../../../use-cases/verify-token';
 
 export async function checkAuthentication(req: Request, res: Response, next: NextFunction): Promise<void> {
   const { container } = req as ContainedRequest;
-  const environment = container.resolve<Environment>('environment');
+  const config = container.resolve<Config>('config');
 
-  const cookieValue = req.cookies[environment.auth.cookieName];
+  const cookieValue = req.cookies[config.auth.cookieName];
   if (!cookieValue) {
-    res.redirect(environment.auth.loginUrl);
+    res.redirect(config.auth.loginUrl);
     return;
   }
 

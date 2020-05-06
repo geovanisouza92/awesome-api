@@ -1,23 +1,23 @@
 import fs from 'fs';
 import path from 'path';
-import { fromKey } from '../../lib/environment';
+import { fromKey } from '../lib/config';
 
 const readFile = (name: string): string => fs.readFileSync(path.resolve(__dirname, name), 'utf8');
-const publicKey = readFile('../keys/dev-only-public-key.pem');
-const privateKey = readFile('../keys/dev-only-private-key.pem');
+const publicKey = readFile('./keys/dev-only-public-key.pem');
+const privateKey = readFile('./keys/dev-only-private-key.pem');
 
-export const Environment = {
+export const Config = {
   http: {
     port: fromKey('PORT')
       .asNumber()
       .defaultTo(3000),
-    logFormat: 'dev',
+    logFormat: 'tiny',
   },
   database: {
-    url: fromKey('DATABASE_URL').defaultTo('postgres://postgres:postgres@localhost:5432/awesome_api'),
+    url: fromKey('DATABASE_URL').defaultTo('postgres://postgres:postgres@localhost:5432/awesome_api_test'),
   },
   logger: {
-    level: 'debug',
+    level: 'warn',
     format: 'pretty',
   },
   auth: {

@@ -6,25 +6,25 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import 'reflect-metadata';
-import { Environment } from '../../config/environment';
+import { Config } from '../../config';
 import { useScopedContainerPerRequest } from '../../lib/http';
 import { currentRequestId, defineRequestId } from '../../lib/request-id';
 import { Logger } from '../infrastructure/logging';
 
-export function createAppContainer(environment: Environment): AwilixContainer {
+export function createAppContainer(config: Config): AwilixContainer {
   const container = createContainer().register({
-    environment: asValue(environment),
+    config: asValue(config),
   });
 
   return container;
 }
 
-export function createAppRouter(environment: Environment, container: AwilixContainer): express.Express {
+export function createAppRouter(config: Config, container: AwilixContainer): express.Express {
   const app = express()
-    .set('port', environment.http.port)
+    .set('port', config.http.port)
     .use(defineRequestId)
     .use(
-      morgan(environment.http.logFormat, {
+      morgan(config.http.logFormat, {
         stream: {
           write(str: string): void {
             const logger = container.resolve<Logger>('logger');

@@ -7,7 +7,7 @@ import {
   LogMethod,
   transports,
 } from 'winston';
-import { Environment } from '../../../config/environment';
+import { Config } from '../../../config';
 import { currentRequestId } from '../../../lib/request-id';
 
 export interface Logger {
@@ -38,10 +38,10 @@ const formats: { [_: string]: import('logform').Format[] } = {
   ],
 };
 
-export function createLogger({ environment }: { environment: Environment }): Logger {
+export function createLogger({ config }: { config: Config }): Logger {
   return winstonCreateLogger({
-    level: environment.logger.level,
-    format: format.combine(addRequestId(), format.timestamp(), ...formats[environment.logger.format]),
+    level: config.logger.level,
+    format: format.combine(addRequestId(), format.timestamp(), ...formats[config.logger.format]),
     transports: [new transports.Console()],
   });
 }

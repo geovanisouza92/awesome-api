@@ -1,13 +1,13 @@
 import http from 'http';
 import { AddressInfo } from 'net';
-import { getEnvironment } from '../../config/environment';
+import { getConfig } from '../../config';
 import { useRest } from '../../src/app/rest';
 import { createAppContainer, createAppRouter } from '../../src/app/setup';
 import { Logger } from '../../src/infrastructure/logging';
 
-const environment = getEnvironment();
-const container = createAppContainer(environment);
-const app = createAppRouter(environment, container);
+const config = getConfig();
+const container = createAppContainer(config);
+const app = createAppRouter(config, container);
 useRest(container, app);
 
 const logger = container.resolve<Logger>('logger');

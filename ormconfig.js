@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { getEnvironment } = require('./config/environment');
+const { getConfig } = require('./config');
 const { getConnectionOptions } = require('./src/infrastructure/database/connection-options');
 
-const environment = getEnvironment();
+const config = getConfig();
 
-module.exports = getConnectionOptions(environment.database.url);
+module.exports = getConnectionOptions(config.database.url);

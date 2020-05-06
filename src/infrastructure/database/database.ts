@@ -1,12 +1,12 @@
 import { Connection, createConnection, Logger } from 'typeorm';
-import { Environment } from '../../../config/environment';
+import { Config } from '../../../config';
 import { Inject, Injectable } from '../../../lib/container';
 import { getConnectionOptions } from './connection-options';
 
 @Injectable
 export class Database {
   @Inject
-  private environment!: Environment;
+  private config!: Config;
 
   @Inject
   private databaseLogger!: Logger;
@@ -16,7 +16,7 @@ export class Database {
   async getConnection(): Promise<Connection> {
     if (!this.connection) {
       this.connection = await createConnection({
-        ...getConnectionOptions(this.environment.database.url),
+        ...getConnectionOptions(this.config.database.url),
         logging: true,
         logger: this.databaseLogger,
       });
