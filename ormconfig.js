@@ -5,10 +5,4 @@ const { getConnectionOptions } = require('./src/infrastructure/database/connecti
 
 const environment = getEnvironment();
 
-module.exports = {
-  ...getConnectionOptions(environment.database.url),
-  // "logging": false,
-  cli: {
-    migrationsDir: 'src/migration',
-  },
-};
+module.exports = getConnectionOptions(environment.database.url);
