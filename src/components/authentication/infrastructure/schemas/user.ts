@@ -9,12 +9,29 @@ export const UserSchema = new EntitySchema<User>({
       primary: true,
       generated: 'uuid',
     },
-    email: {
-      type: String,
-      unique: true,
-    },
     name: {
       type: String,
+      length: 100,
+      nullable: false,
+      default: '',
+    },
+    email: {
+      type: String,
+      length: 100,
+      nullable: false,
+      unique: true,
+    },
+    password: {
+      type: String,
+      length: 64,
+      nullable: false,
+      select: false,
+    },
+    passwordSalt: {
+      type: String,
+      length: 30,
+      nullable: false,
+      select: false,
     },
   },
 });
