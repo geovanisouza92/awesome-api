@@ -1,0 +1,35 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "references": [
+    {
+      "path": "../app-router/tsconfig.build.json"
+    },
+    {
+      "path": "../authentication/tsconfig.build.json"
+    },
+    {
+      "path": "../config/tsconfig.build.json"
+    },
+    {
+      "path": "../database/tsconfig.build.json"
+    },
+    {
+      "path": "../db-common/tsconfig.build.json"
+    },
+    {
+      "path": "../healthcheck/tsconfig.build.json"
+    },
+    {
+      "path": "../logging/tsconfig.build.json"
+    }
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}

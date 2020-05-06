@@ -1,0 +1,36 @@
+{
+  "name": "@awesome/authentication",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
+    "compile": "tsc -b tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@awesome/config": "^1.0.0",
+    "@awesome/database": "^1.0.0",
+    "@awesome/db-common": "^1.0.0",
+    "@awesome/ddd-common": "^1.0.0",
+    "@awesome/errors": "^1.0.0",
+    "@awesome/http-common": "^1.0.0",
+    "@awesome/inject": "^1.0.0",
+    "awilix": "file:../../node_modules/awilix",
+    "http-status": "^1.4.2",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "peerDependencies": {
+    "typeorm": "*"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.3.7",
+    "typescript": "file:../../node_modules/typescript"
+  }
+}

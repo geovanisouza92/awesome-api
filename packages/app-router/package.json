@@ -1,0 +1,40 @@
+{
+  "name": "@awesome/app-router",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
+    "compile": "tsc -b tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@awesome/config": "^1.0.0",
+    "@awesome/http-common": "^1.0.0",
+    "@awesome/logging": "^1.0.0",
+    "awilix": "file:../../node_modules/awilix",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "helmet": "^3.21.2",
+    "morgan": "^1.9.1"
+  },
+  "peerDependencies": {
+    "express": "*",
+    "@types/express": "*"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.1",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.6",
+    "@types/helmet": "0.0.45",
+    "@types/morgan": "^1.7.37",
+    "typescript": "file:../../node_modules/typescript"
+  }
+}

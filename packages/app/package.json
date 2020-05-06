@@ -1,0 +1,31 @@
+{
+  "name": "@awesome/app",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
+    "compile": "tsc -b tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "start:watch": "nodemon --exec 'npm start' --ext ts",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@awesome/app-router": "^1.0.0",
+    "@awesome/authentication": "^1.0.0",
+    "@awesome/config": "^1.0.0",
+    "@awesome/database": "^1.0.0",
+    "@awesome/db-common": "^1.0.0",
+    "@awesome/healthcheck": "^1.0.0",
+    "@awesome/logging": "^1.0.0",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "typescript": "file:../../node_modules/typescript"
+  }
+}
