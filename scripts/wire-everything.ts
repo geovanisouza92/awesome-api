@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { sync } from 'glob';
-import { basename, resolve } from 'path';
+import { sync as globSync } from 'glob';
+import { basename, relative, resolve } from 'path';
 import { format } from 'prettier';
 
 const prettierOptions = JSON.parse(readFileSync(resolve(__dirname, '../.prettierrc'), 'utf-8'));
@@ -8,9 +8,9 @@ const prettierOptions = JSON.parse(readFileSync(resolve(__dirname, '../.prettier
 const titleCase = (word: string): string => word[0].toUpperCase() + word.slice(1);
 
 function generateEntities(): string {
-  const schemaFiles = sync('src/components/*/infrastructure/schemas/*.ts');
+  const schemaFiles = globSync('src/components/*/infrastructure/schemas/*.ts');
 
-  const header: string[] = [`// Created by scripts/${basename(__filename)} - DO NOT EDIT`, ''];
+  const header: string[] = [`// Created by ${relative(process.cwd(), __filename)} - DO NOT EDIT`, ''];
   const schemas: string[] = [];
 
   schemaFiles.forEach((schemaFile) => {
