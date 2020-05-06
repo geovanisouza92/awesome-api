@@ -27,16 +27,20 @@ export async function setupFixtures(fixturesPath: string, connection: Connection
       const repository = getRepository(entity.constructor.name);
       repository.save(entity);
     }
-  } finally {
-    if (connection) {
-      await connection.close();
-    }
+  } catch (up) {
+    await connection?.close();
+    throw up;
   }
 
   return async (): Promise<void> => {
-    return Array.from(repositoryMap.values()).reduce(async (prevPromise: Promise<void>, repository: Repository<{}>) => {
-      await prevPromise;
-      return repository.clear();
-    }, Promise.resolve());
+    const cleanRepositories = Array.from(repositoryMap.values()).reduce(
+      async (prevPromise: Promise<void>, repository: Repository<{}>) => {
+        await prevPromise;
+        return repository.clear();
+      },
+      Promise.resolve(),
+    );
+    await cleanRepositories;
+    await connection?.close();
   };
 }
