@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import 'reflect-metadata';
 import { Environment } from '../../config/environment';
-import { scopePerRequest } from '../../lib/http';
+import { useScopedContainerPerRequest } from '../../lib/http';
 import { currentRequestId, defineRequestId } from '../../lib/request-id';
 import { Logger } from '../infrastructure/logging';
 
@@ -37,7 +37,7 @@ export function createAppRouter(environment: Environment, container: AwilixConta
     .use(helmet())
     .use(bodyParser.json())
     .use(cookieParser())
-    .use(scopePerRequest(container));
+    .use(useScopedContainerPerRequest(container));
 
   return app;
 }

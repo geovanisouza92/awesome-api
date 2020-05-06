@@ -1,19 +1,19 @@
 import { AwilixContainer } from 'awilix';
 import express from 'express';
-import { mountAuthenticationModule } from '../components/authentication';
-import { mountAuthenticationApi } from '../components/authentication/interfaces/rest';
-import { mountHealthcheckModule } from '../components/healthcheck';
-import { mountHealthcheckApi } from '../components/healthcheck/interfaces/rest';
-import { mountDatabaseModule, openTransaction } from '../infrastructure/database';
-import { mountLoggingModule } from '../infrastructure/logging';
+import { useAuthenticationModule } from '../components/authentication';
+import { useAuthenticationApi } from '../components/authentication/interfaces/rest';
+import { useHealthcheckModule } from '../components/healthcheck';
+import { useHealthcheckApi } from '../components/healthcheck/interfaces/rest';
+import { useDatabaseModule, useTransaction } from '../infrastructure/database';
+import { useLoggingModule } from '../infrastructure/logging';
 
-export function mountModulesForRest(container: AwilixContainer, app: express.Router): void {
-  mountLoggingModule(container);
-  mountDatabaseModule(container);
-  mountHealthcheckModule(container);
-  mountAuthenticationModule(container);
+export function useRest(container: AwilixContainer, app: express.Router): void {
+  useLoggingModule(container);
+  useDatabaseModule(container);
+  useHealthcheckModule(container);
+  useAuthenticationModule(container);
 
-  app.use(openTransaction);
-  mountHealthcheckApi(app);
-  mountAuthenticationApi(app);
+  app.use(useTransaction);
+  useAuthenticationApi(app);
+  useHealthcheckApi(app);
 }

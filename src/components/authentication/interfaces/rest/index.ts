@@ -3,10 +3,10 @@ import { createController } from '../../../../../lib/http';
 import { AuthenticationController } from './controllers/authentication';
 import { checkAuthentication } from './middlewares/check-authentication';
 
-export function mountAuthenticationApi(app: Router): void {
+export function useAuthenticationApi(app: Router): void {
   app.use(checkAuthentication);
 
-  const handleWith = createController(AuthenticationController);
+  const useAction = createController(AuthenticationController);
 
-  app.use('/auth/authenticate', handleWith('authenticate'));
+  app.use('/auth/authenticate', useAction('authenticate'));
 }

@@ -46,7 +46,7 @@ export function createLogger({ environment }: { environment: Environment }): Log
   });
 }
 
-export function mountLoggingModule(container: AwilixContainer): void {
+export function useLoggingModule(container: AwilixContainer): void {
   container.register({
     logger: asFunction(createLogger).scoped(),
   });

@@ -1,7 +1,7 @@
 import { Connection } from 'typeorm';
 import { getEnvironment } from '../../../../../config/environment';
 import { createAppContainer } from '../../../../app/setup';
-import { mountDatabaseModule } from '../../../../infrastructure/database';
+import { useDatabaseModule } from '../../../../infrastructure/database';
 import { Database } from '../../../../infrastructure/database/database';
 import { UserRepository } from '../user-repository';
 
@@ -11,7 +11,7 @@ describe('UserRepositoryImpl', () => {
 
   beforeAll(async () => {
     const container = createAppContainer(getEnvironment());
-    mountDatabaseModule(container);
+    useDatabaseModule(container);
 
     const database = container.resolve<Database>('database');
     connection = await database.getConnection();

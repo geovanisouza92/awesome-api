@@ -5,36 +5,37 @@ import { NextFunction, Request, Response } from 'express';
 
 export type ContainedRequest = Request & { container: AwilixContainer };
 
-export function scopePerRequest(container: AwilixContainer) {
+export function useScopedContainerPerRequest(container: AwilixContainer) {
   return (req: Request, _res: Response, next: NextFunction): void => {
     (req as ContainedRequest).container = container.createScope();
     next();
   };
 }
 
-function asyncWrapper(fn: (...args: any[]) => any): (...args: any[]) => any {
+function asyncWrapper(handler: (...args: any[]) => any): (...args: any[]) => any {
   return (req, res, next): any => {
-    const result = fn(req, res, next);
+    const result = handler(req, res, next);
 
     if (result && result.catch && typeof result.catch === 'function') {
       return (result as Promise<any>).catch((err) => next(err));
     }
 
+    // TODO Review with sync handlers
     return result;
   };
 }
 
 type Handler = (req: Request, res: Response, next?: NextFunction) => void;
-type Invoker<K> = (methodName: K) => Handler;
+type ActionHandlerFactory<K> = (actionName: K) => Handler;
 
-export function createController<T, K extends keyof T>(ctor: Constructor<T>): Invoker<K> {
+export function createController<T, K extends keyof T>(ctor: Constructor<T>): ActionHandlerFactory<K> {
   const klass = asClass(ctor);
-  return function handleWith(methodName: K) {
+  return function useAction(actionName: K) {
     return function handler(req: Request, ...rest: any[]): void {
       const { container } = req as ContainedRequest;
-      const instance = container.build(klass);
-      const method = (instance[methodName] as unknown) as Function;
-      return asyncWrapper(method.bind(instance))(req, ...rest);
+      const controller = container.build(klass);
+      const action = (controller[actionName] as unknown) as Function;
+      return asyncWrapper(action.bind(controller))(req, ...rest);
     };
   };
 }

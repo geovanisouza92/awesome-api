@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { ContainedRequest } from '../../../../lib/http';
 import { Database } from '../database';
 
-export async function openTransaction(req: Request, _: Response, next: NextFunction): Promise<void> {
+export async function useTransaction(req: Request, _: Response, next: NextFunction): Promise<void> {
   const { container } = req as ContainedRequest;
   const database = container.resolve<Database>('database');
   const connection = await database.getConnection();
