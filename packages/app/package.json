@@ -12,6 +12,7 @@
     "clean": "rm -rf ./dist && rm -rf tsconfig.build.tsbuildinfo",
     "compile": "tsc -b tsconfig.build.json",
     "prepublishOnly": "npm run build",
+    "start": "ts-node src",
     "start:watch": "nodemon --exec 'npm start' --ext ts",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },

@@ -10,8 +10,7 @@
     "postinstall": "lerna bootstrap --hoist",
     "clean": "lerna run clean",
     "build": "lerna run build",
-    "start": "ts-node bin/www",
-    "prestart": "ts-node scripts/wire-everything",
+    "build-image": "docker build -t awesome-api -f packages/app/Dockerfile .",
     "test": "jest unit.test",
     "test-all": "jest",
     "lint": "eslint '**/*.ts'"
