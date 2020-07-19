@@ -1,9 +1,9 @@
-import { apply, Out } from '@awesome/config-parser';
+import { apply, InferConfigType } from '@awesome/config-parser';
 import { Config as DevConfig } from './config.dev';
 import { Config as ProdConfig } from './config.prod';
 import { Config as TestConfig } from './config.test';
 
-export type Config = Out<typeof DevConfig>;
+export type Config = InferConfigType<typeof DevConfig>;
 
 export function getConfig(source = process.env): Config {
   let config: typeof DevConfig = DevConfig;

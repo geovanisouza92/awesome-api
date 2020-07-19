@@ -20,7 +20,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/infrastructure/database/repositories/*.ts'],
+      files: ['packages/**/src/infrastructure/database/repositories/*.ts'],
       rules: {
         'prefer-template': 'error',
         'no-restricted-syntax': ['error', 'TemplateLiteral'],

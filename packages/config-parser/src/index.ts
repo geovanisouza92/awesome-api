@@ -61,7 +61,7 @@ type Spec = {
   [key: string]: string | number | boolean | Spec | Value;
 };
 
-export type Out<S extends Spec> = {
+export type InferConfigType<S extends Spec> = {
   [K in keyof S]: S[K] extends string
     ? string
     : S[K] extends number
@@ -69,7 +69,7 @@ export type Out<S extends Spec> = {
     : S[K] extends boolean
     ? boolean
     : S[K] extends Spec
-    ? Out<S[K]>
+    ? InferConfigType<S[K]>
     : S[K] extends Value<infer T>
     ? T
     : never;
@@ -83,7 +83,7 @@ function isSpec(spec: any): spec is Spec {
   return typeof spec === 'object' && Object.values(spec).some(isValue);
 }
 
-export function apply<S extends Spec>(spec: S, source: Source): Out<S> {
+export function apply<S extends Spec>(spec: S, source: Source): InferConfigType<S> {
   return Object.keys(spec).reduce((values, key) => {
     let value = spec[key];
     if (isValue(value)) {
@@ -96,5 +96,5 @@ export function apply<S extends Spec>(spec: S, source: Source): Out<S> {
       ...values,
       [key]: value,
     };
-  }, ({} as any) as Out<S>);
+  }, ({} as any) as InferConfigType<S>);
 }
