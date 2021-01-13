@@ -1,5 +1,4 @@
 import { Config } from '@awesome/config';
-import { currentRequestId } from '@awesome/http-common';
 import { asFunction, AwilixContainer } from 'awilix';
 import {
   createLogger as winstonCreateLogger,
@@ -18,13 +17,14 @@ export interface Logger {
   debug: LeveledLogMethod;
 }
 
-const addRequestId = format((info) => {
-  const requestId = currentRequestId();
-  if (requestId) {
-    info['request-id'] = requestId;
-  }
-  return info;
-});
+const addRequestId = (currentRequestId: () => string): import('logform').FormatWrap =>
+  format((info) => {
+    const requestId = currentRequestId();
+    if (requestId) {
+      info['request-id'] = requestId;
+    }
+    return info;
+  });
 
 const formats: { [_: string]: import('logform').Format[] } = {
   json: [format.json()],
@@ -38,10 +38,10 @@ const formats: { [_: string]: import('logform').Format[] } = {
   ],
 };
 
-export function createLogger({ config }: { config: Config }): Logger {
+export function createLogger({ config, currentRequestId }: { config: Config; currentRequestId: () => string }): Logger {
   return winstonCreateLogger({
     level: config.logger.level,
-    format: format.combine(addRequestId(), format.timestamp(), ...formats[config.logger.format]),
+    format: format.combine(addRequestId(currentRequestId)(), format.timestamp(), ...formats[config.logger.format]),
     transports: [new transports.Console()],
   });
 }

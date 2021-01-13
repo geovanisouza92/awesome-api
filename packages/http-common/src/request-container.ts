@@ -28,7 +28,7 @@ function asyncWrapper(handler: (...args: any[]) => any): (...args: any[]) => any
 type Handler = (req: Request, res: Response, next?: NextFunction) => void;
 type ActionHandlerFactory<K> = (actionName: K) => Handler;
 
-export function createController<T, K extends keyof T>(ctor: Constructor<T>): ActionHandlerFactory<K> {
+export function useController<T, K extends keyof T>(ctor: Constructor<T>): ActionHandlerFactory<K> {
   const klass = asClass(ctor);
   return function useAction(actionName: K) {
     return function handler(req: Request, ...rest: any[]): void {

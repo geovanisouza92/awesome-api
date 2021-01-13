@@ -1,7 +1,7 @@
 import { Config } from '@awesome/config';
 import { currentRequestId, defineRequestId, useScopedContainerPerRequest } from '@awesome/http-common';
 import { Logger } from '@awesome/logging';
-import { AwilixContainer } from 'awilix';
+import { asValue, AwilixContainer } from 'awilix';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -10,6 +10,10 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 export function createAppRouter(config: Config, container: AwilixContainer): express.Express {
+  container.register({
+    currentRequestId: asValue(currentRequestId),
+  });
+
   const app = express()
     .set('port', config.http.port)
     .use(defineRequestId)
